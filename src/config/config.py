@@ -1,4 +1,4 @@
-from db_backup.config.db_connector import DbConnector
+from .db_connector import DbConnector
 from tabulate import tabulate
 
 
@@ -38,9 +38,6 @@ class Config:
         self.db_connector.delete(row_id)
 
     def menu(self):
-        print('DB Backup')
-        print('App allow to backup mysql database located in docker containers.')
-
         while True:
             print()
             self.list()
