@@ -1,5 +1,6 @@
 from .db_connector import DbConnector
 from tabulate import tabulate
+import click
 
 
 class Config:
@@ -10,7 +11,7 @@ class Config:
         self.menu()
 
     def list(self):
-        print(tabulate(self.db_connector.list(), headers=[
+        click.echo(tabulate(self.db_connector.list(), headers=[
             "Row ID",
             "Container name or ID",
             "Root password into DB",
@@ -18,36 +19,36 @@ class Config:
         ]))
 
     def add(self):
-        row_id = int(input('Row ID: > '))
-        container = input('Container name or ID: > ')
-        root_pass = input('Root password into DB: > ')
-        db_name = input('Database name: > ')
+        row_id = click.prompt('Row ID', type=int)
+        container = click.prompt('Container name or ID')
+        root_pass = click.prompt('Root password into DB')
+        db_name = click.prompt('Database name')
 
         self.db_connector.add(row_id, container, root_pass, db_name)
 
     def edit(self):
-        row_id = int(input('Row ID: > '))
-        container = input('Container name or ID: > ')
-        root_pass = input('Root password into DB: > ')
-        db_name = input('Database name: > ')
+        row_id = click.prompt('Row ID', type=int)
+        container = click.prompt('Container name or ID')
+        root_pass = click.prompt('Root password into DB')
+        db_name = click.prompt('Database name')
 
         self.db_connector.edit(row_id, container, root_pass, db_name)
 
     def remove(self):
-        row_id = int(input('Row ID: > '))
+        row_id = click.prompt('Row ID', type=int)
         self.db_connector.delete(row_id)
 
     def menu(self):
         while True:
-            print()
+            click.echo()
             self.list()
-            print()
-            print('Press `1` to add new config')
-            print('Press `2` to edit config')
-            print('Press `3` to remove config')
-            print('Press `q` to quit')
-            select = input('Select your option and press `Enter` > ').lower().strip()
-            print()
+            click.echo()
+            click.echo('Press `1` to add new config')
+            click.echo('Press `2` to edit config')
+            click.echo('Press `3` to remove config')
+            click.echo('Press `q` to quit')
+            select = click.prompt('Select your option and press `Enter').lower().strip()
+            click.echo()
 
             if select == 'q':
                 break
@@ -58,4 +59,4 @@ class Config:
             elif select == '3':
                 self.remove()
             else:
-                print('Invalid choice!')
+                click.echo('Invalid choice!')
