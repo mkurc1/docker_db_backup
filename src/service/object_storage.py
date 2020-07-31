@@ -1,21 +1,12 @@
 import logging
-from os import environ
 
 from swiftclient.service import SwiftService, SwiftUploadObject, SwiftError
 from swiftclient.exceptions import ClientException
 
 
 class ObjectStorage:
-    def __init__(self):
-        self.config = {
-            "auth_version": 3,
-            "os_username": environ.get('OBJECT_STORAGE_USERNAME'),
-            "os_password": environ.get('OBJECT_STORAGE_PASSWORD'),
-            "os_project_name": environ.get('OBJECT_STORAGE_PROJECT_NAME'),
-            "os_project_domain_name": environ.get('OBJECT_STORAGE_PROJECT_DOMAIN_NAME'),
-            "os_auth_url": environ.get('OBJECT_STORAGE_AUTH_URL'),
-            "os_region_name": environ.get('OBJECT_STORAGE_REGION'),
-        }
+    def __init__(self, config):
+        self.config = config
 
         logging.basicConfig(level=logging.ERROR)
         logging.getLogger("swiftclient").setLevel(logging.CRITICAL)

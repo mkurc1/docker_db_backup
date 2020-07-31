@@ -1,8 +1,10 @@
 import click
+import os
+
 from service.connection import Connection
-from service.object_storage import ObjectStorage
+from service.backup import Backup
+
 from dotenv import load_dotenv
-from tabulate import tabulate
 
 connection = Connection()
 load_dotenv()
@@ -14,15 +16,15 @@ def main():
     DB Backup\n
     App allow to backup mysql database located in docker containers and send it into Object Storage.
     """
+    pass
 
 
 @main.command('backup')
 def backup_cmd():
-    """Process backup. Put this command into cron"""
-    object_storage = ObjectStorage()
-
-    result = object_storage.list(container="backup")
-    print(tabulate(result, headers="keys"))
+    """Process backup"""
+    dump_dir = os.path.join(os.path.dirname(__file__) + '/../data/')
+    backup = Backup(dump_dir)
+    backup.process()
 
 
 @main.command('list')

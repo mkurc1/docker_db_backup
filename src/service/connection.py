@@ -5,10 +5,10 @@ import click
 
 class Connection:
     def __init__(self):
-        self.db_connector = DbConnector('config', 'config')
+        self.__db_connector = DbConnector('config', 'config')
 
     def list(self):
-        click.echo(tabulate(self.db_connector.list(), headers=[
+        click.echo(tabulate(self.__db_connector.list(), headers=[
             "Row ID",
             "Container name or ID",
             "Root password into DB",
@@ -21,7 +21,7 @@ class Connection:
         root_pass = click.prompt('Root password into DB')
         db_name = click.prompt('Database name')
 
-        self.db_connector.add(row_id, container, root_pass, db_name)
+        self.__db_connector.add(row_id, container, root_pass, db_name)
 
     def edit(self):
         row_id = click.prompt('Row ID', type=int)
@@ -29,8 +29,8 @@ class Connection:
         root_pass = click.prompt('Root password into DB')
         db_name = click.prompt('Database name')
 
-        self.db_connector.edit(row_id, container, root_pass, db_name)
+        self.__db_connector.edit(row_id, container, root_pass, db_name)
 
     def remove(self):
         row_id = click.prompt('Row ID', type=int)
-        self.db_connector.delete(row_id)
+        self.__db_connector.delete(row_id)
