@@ -1,17 +1,19 @@
 import click
-from config.config import Config
-from backup.object_storage import ObjectStorage
+from service.connection import Connection
+from service.object_storage import ObjectStorage
 from dotenv import load_dotenv
 from tabulate import tabulate
+
+connection = Connection()
+load_dotenv()
 
 
 @click.group()
 def main():
     """
     DB Backup\n
-    App allow to backup mysql database located in docker containers and send it into OVH Object Storage.
+    App allow to backup mysql database located in docker containers and send it into Object Storage.
     """
-    load_dotenv()
 
 
 @main.command('backup')
@@ -23,11 +25,28 @@ def backup_cmd():
     print(tabulate(result, headers="keys"))
 
 
-@main.command('config')
-def config_cmd():
-    """Config database connections"""
-    config = Config()
-    config.run()
+@main.command('list')
+def list_cmd():
+    """List of all database connections"""
+    connection.list()
+
+
+@main.command('add')
+def add_cmd():
+    """Add new connection"""
+    connection.add()
+
+
+@main.command('edit')
+def edit_cmd():
+    """Edit exist connection"""
+    connection.edit()
+
+
+@main.command('remove')
+def edit_cmd():
+    """Remove exist connection"""
+    connection.remove()
 
 
 if __name__ == '__main__':
