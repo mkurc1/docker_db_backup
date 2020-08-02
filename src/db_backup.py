@@ -1,5 +1,4 @@
 import click
-import os
 
 from service.connection import Connection
 from service.backup import Backup
@@ -22,8 +21,7 @@ def main():
 @main.command('backup')
 def backup_cmd():
     """Process backup"""
-    dump_dir = os.path.join(os.path.dirname(__file__) + '/../data/')
-    backup = Backup(dump_dir)
+    backup = Backup()
     backup.process()
 
 
