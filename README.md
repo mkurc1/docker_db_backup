@@ -60,4 +60,4 @@ $ pipenv run python src/db_backup.py add
 
 ## License
 
-The bundle is released under the [MIT License](LICENSE).
+The App is released under the [MIT License](LICENSE).
