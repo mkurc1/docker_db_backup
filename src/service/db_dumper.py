@@ -14,9 +14,10 @@ class DbDumper:
         process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stderr = process.communicate()[1]
 
-        if 'Error:' in str(stderr.strip()):
+        if 'error' in str(stderr.strip()):
             os.system(f'rm {file_path}')
-            raise FileNotFoundError(f'Dump database `{db_name}` from container `{container}` went wrong.')
+            raise FileNotFoundError(f'Dump database `{db_name}` from container `{container}` went wrong. \n'
+                                    f'Message: {stderr.strip()}')
 
         return file_path, file_name
 
